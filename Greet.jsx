@@ -376,3 +376,222 @@ const App = () => {
 };
 
 export default App;
+
+///
+
+
+import React, { useState, useEffect } from 'react';
+
+const App = () => {
+    const [users, setUsers] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        fetch('https://jsonplaceholder.typicode.com/users')
+            .then(response => response.json())
+            .then(data => {
+                setUsers(data);
+                setLoading(false);
+            })
+            .catch(error => {
+                setError(error.message);
+                setLoading(false);
+            });
+    }, []);
+
+    if (loading) return <h2>Loading...</h2>;
+    if (error) return <h2>Error: {error}</h2>;
+
+    return (
+        <div>
+            <h1>Users List</h1>
+            <ul>
+                {users.map(user => (
+                    <li key={user.id}>
+                        <strong>{user.name}</strong> - {user.email}
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
+};
+
+export default App;
+
+/////
+
+
+import React from 'react';
+import PostCard from './PostCard';
+
+const POSTS_DATA = [
+    {
+        id: 1,
+        username: "dev_traveler",
+        content: "Just finished my first React project!",
+        likes: 24,
+        comments: ["Great job!", "Keep it up!", "React is awesome."]
+    },
+    {
+        id: 2,
+        username: "chef_logic",
+        content: "The secret to a perfect steak is the sear.",
+        likes: 85,
+        comments: ["Recipe please?", "Cast iron or grill?"]
+    }
+];
+
+const App = () => {
+    return (
+        <>
+            <h1>Social Feed</h1>
+            {POSTS_DATA.map((post) => (
+                <PostCard key={post.id} post={post} />
+            ))}
+        </>
+    );
+};
+
+export default App;
+
+
+import React from 'react';
+import CommentItem from './CommentItem';
+
+const PostCard = ({ post }) => {
+    return (
+        <div style={{
+            border: '1px solid #ccc',
+            borderRadius: '8px',
+            padding: '16px',
+            margin: '16px 0',
+            backgroundColor: '#f9f9f9'
+        }}>
+            <h3 style={{ margin: '0 0 8px 0', color: '#333' }}>
+                @{post.username}
+            </h3>
+
+            <p style={{ fontSize: '16px', margin: '8px 0' }}>
+                {post.content}
+            </p>
+
+            {/* Conditional styling for likes */}
+            <p style={{
+                fontWeight: post.likes > 50 ? 'bold' : 'normal',
+                color: post.likes > 50 ? 'red' : '#666',
+                margin: '8px 0'
+            }}>
+                {post.likes} likes
+            </p>
+
+            <div style={{ marginTop: '16px' }}>
+                <h4 style={{ margin: '0 0 8px 0', fontSize: '14px', color: '#555' }}>
+                    Comments ({post.comments.length}):
+                </h4>
+                <ul style={{ paddingLeft: '20px', margin: '0' }}>
+                    {post.comments.map((comment, index) => (
+                        <CommentItem key={index} text={comment} />
+                    ))}
+                </ul>
+            </div>
+        </div>
+    );
+};
+
+export default PostCard;
+
+
+import React from 'react';
+
+const CommentItem = ({ text }) => {
+    return (
+        <li style={{
+            backgroundColor: '#e9ecef',
+            padding: '8px 12px',
+            margin: '8px 0',
+            borderRadius: '6px',
+            listStyleType: 'none',
+            fontSize: '14px',
+            color: '#333'
+        }}>
+            {text}
+        </li>
+    );
+};
+
+export default CommentItem;
+
+
+
+
+//
+
+
+
+import React, { useState } from 'react';
+
+const App = () => {
+    const [formData, setFormData] = useState({});
+    const [arr, setArr] = useState([]);
+
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setArr([...arr, formData]);
+        setFormData({});
+    };
+
+    const handleDelete = (index) => {
+        const newArr = [...arr];
+        newArr.splice(index, 1);
+        setArr(newArr);
+    };
+
+    return (
+        <div>
+            <input
+                type="text"
+                name="username"
+                placeholder="Enter the name"
+                onChange={handleChange}
+                value={formData.username || ''}
+            />
+            <input
+                type="text"
+                name="email"
+                placeholder="Enter the email"
+                onChange={handleChange}
+                value={formData.email || ''}
+            />
+            <br />
+            <button onClick={handleSubmit}>Add</button>
+
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {arr.map((el, index) => (
+                        <tr key={index}>
+                            <td>{el.username}</td>
+                            <td>{el.email}</td>
+                            <td>
+                                <button onClick={() => handleDelete(index)}>Delete</button>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+    );
+};
+
+export default App;
