@@ -32,32 +32,47 @@ export const LandingPage: React.FC = () => {
 
   return (
     <div className="relative min-h-[calc(100vh-4rem)] overflow-hidden bg-gradient-to-tr from-rose-50/70 via-pink-50/50 to-amber-50/60 dark:from-rose-950/20 dark:via-slate-950 dark:to-purple-950/20 pb-16 md:pb-24">
-      {/* Floating hearts and sparkles */}
+      {/* Falling hearts and sparkles (Valentine theme) */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden select-none z-0">
-        {[...Array(15)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute text-rose-500/20 dark:text-rose-500/10"
-            initial={{ 
-              x: `${Math.random() * 100}%`, 
-              y: '110vh', 
-              scale: Math.random() * 0.7 + 0.4,
-              opacity: Math.random() * 0.5 + 0.1
-            }}
-            animate={{ 
-              y: '-10vh',
-              rotate: [0, 10, -10, 0],
-            }}
-            transition={{ 
-              duration: Math.random() * 12 + 12, 
-              repeat: Infinity, 
-              ease: 'linear',
-              delay: Math.random() * 10 
-            }}
-          >
-            {i % 3 === 0 ? '❤️' : i % 3 === 1 ? '✨' : '💖'}
-          </motion.div>
-        ))}
+        {[...Array(40)].map((_, i) => {
+          const size = Math.random() * 20 + 10; // size in pixels
+          const duration = Math.random() * 8 + 8; // speed of falling
+          const delay = Math.random() * -20; // negative delay so they start scattered immediately
+          const horizontalStart = Math.random() * 100;
+          const heartsList = ['❤️', '💖', '💝', '💕', '✨', '🌸'];
+          const heart = heartsList[i % heartsList.length];
+
+          return (
+            <motion.div
+              key={i}
+              className="absolute text-rose-500/30 dark:text-rose-500/10 select-none pointer-events-none"
+              style={{
+                fontSize: `${size}px`,
+                left: `${horizontalStart}%`,
+              }}
+              initial={{ 
+                y: '-10vh',
+                x: 0,
+                opacity: 0,
+                rotate: Math.random() * 360
+              }}
+              animate={{ 
+                y: '110vh',
+                x: Math.random() * 60 - 30, // gentle sway in pixels
+                opacity: [0, 0.45, 0.45, 0],
+                rotate: Math.random() * 360 + 180
+              }}
+              transition={{ 
+                duration: duration, 
+                repeat: Infinity, 
+                ease: 'easeInOut',
+                delay: delay 
+              }}
+            >
+              {heart}
+            </motion.div>
+          );
+        })}
       </div>
 
       {/* Background Decorative Gradients */}
