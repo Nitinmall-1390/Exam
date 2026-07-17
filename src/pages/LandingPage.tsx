@@ -31,13 +31,41 @@ export const LandingPage: React.FC = () => {
   };
 
   return (
-    <div className="relative min-h-[calc(100vh-4rem)] overflow-hidden bg-slate-50 dark:bg-slate-950 pb-16 md:pb-24">
+    <div className="relative min-h-[calc(100vh-4rem)] overflow-hidden bg-gradient-to-tr from-rose-50/70 via-pink-50/50 to-amber-50/60 dark:from-rose-950/20 dark:via-slate-950 dark:to-purple-950/20 pb-16 md:pb-24">
+      {/* Floating hearts and sparkles */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden select-none z-0">
+        {[...Array(15)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute text-rose-500/20 dark:text-rose-500/10"
+            initial={{ 
+              x: `${Math.random() * 100}%`, 
+              y: '110vh', 
+              scale: Math.random() * 0.7 + 0.4,
+              opacity: Math.random() * 0.5 + 0.1
+            }}
+            animate={{ 
+              y: '-10vh',
+              rotate: [0, 10, -10, 0],
+            }}
+            transition={{ 
+              duration: Math.random() * 12 + 12, 
+              repeat: Infinity, 
+              ease: 'linear',
+              delay: Math.random() * 10 
+            }}
+          >
+            {i % 3 === 0 ? '❤️' : i % 3 === 1 ? '✨' : '💖'}
+          </motion.div>
+        ))}
+      </div>
+
       {/* Background Decorative Gradients */}
-      <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] rounded-full bg-indigo-500/10 blur-[120px] dark:bg-indigo-600/5 pointer-events-none" />
-      <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-purple-500/10 blur-[120px] dark:bg-purple-600/5 pointer-events-none" />
+      <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] rounded-full bg-rose-500/10 blur-[120px] dark:bg-rose-600/5 pointer-events-none animate-pulse" style={{ animationDuration: '8s' }} />
+      <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-amber-400/10 blur-[120px] dark:bg-pink-600/5 pointer-events-none animate-pulse" style={{ animationDuration: '12s' }} />
 
       {/* Hero Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 md:pt-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 md:pt-20 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
           {/* Left Column: Text */}
@@ -47,32 +75,32 @@ export const LandingPage: React.FC = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7 }}
           >
-            <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-200/50 dark:border-indigo-800/40 text-indigo-600 dark:text-indigo-400 text-xs font-bold uppercase tracking-wider mb-6">
-              <Sparkles className="w-3.5 h-3.5" />
+            <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-rose-50 dark:bg-rose-950/40 border border-rose-200/40 dark:border-rose-900/30 text-rose-600 dark:text-rose-400 text-xs font-bold uppercase tracking-wider mb-6 shadow-sm shadow-rose-100/50 dark:shadow-none">
+              <Sparkles className="w-3.5 h-3.5 text-rose-500" />
               Ultimate JCECEB B.Sc. Nursing prep
             </div>
             
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.1] mb-6">
               Conquer the JCECEB{' '}
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 via-violet-500 to-purple-600 dark:from-indigo-400 dark:to-purple-400">
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-rose-500 via-pink-500 to-amber-500 dark:from-rose-400 dark:via-pink-400 dark:to-amber-400">
                 Nursing Entrance
               </span>
             </h1>
             
             <p className="text-base sm:text-lg text-slate-600 dark:text-slate-400 mb-8 leading-relaxed">
-              Elevate your preparation with 5 high-fidelity, full-length mock examinations modeled exactly after JCECEB syllabus standards. Real questions, detailed NCERT-linked rationales, and memory tricks.
+              Elevate your preparation with 10 high-fidelity, full-length mock examinations modeled exactly after JCECEB syllabus standards. Real questions, detailed NCERT-linked rationales, and memory tricks.
             </p>
 
             <div className="flex flex-wrap gap-4">
               <button
                 onClick={() => navigate('/dashboard')}
-                className="px-8 py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm shadow-lg shadow-indigo-600/20 hover:shadow-indigo-600/30 transform hover:-translate-y-0.5 transition-all duration-200"
+                className="px-8 py-3.5 rounded-xl bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-600 hover:to-pink-700 text-white font-bold text-sm shadow-lg shadow-rose-500/20 hover:shadow-rose-500/30 transform hover:-translate-y-0.5 transition-all duration-200"
               >
                 Start Free Mock Tests
               </button>
               <a
                 href="#exam-pattern"
-                className="px-8 py-3.5 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-900 text-slate-700 dark:text-slate-350 font-bold text-sm transition-colors"
+                className="px-8 py-3.5 rounded-xl border border-rose-200 dark:border-rose-900/30 hover:bg-rose-50/50 dark:hover:bg-rose-950/10 text-rose-750 dark:text-rose-350 font-bold text-sm transition-colors"
               >
                 View Exam Pattern
               </a>
@@ -105,7 +133,7 @@ export const LandingPage: React.FC = () => {
           animate="visible"
         >
           <motion.div className="glass-effect rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden" variants={itemVariants}>
-            <div className="w-12 h-12 rounded-xl bg-indigo-500/10 dark:bg-indigo-400/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mb-5">
+            <div className="w-12 h-12 rounded-xl bg-rose-500/10 dark:bg-rose-400/10 text-rose-600 dark:text-rose-400 flex items-center justify-center mb-5">
               <Brain className="w-6 h-6" />
             </div>
             <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">NCERT Class 11 & 12 Mapped</h3>
@@ -115,7 +143,7 @@ export const LandingPage: React.FC = () => {
           </motion.div>
 
           <motion.div className="glass-effect rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden" variants={itemVariants}>
-            <div className="w-12 h-12 rounded-xl bg-purple-500/10 dark:bg-purple-400/10 text-purple-600 dark:text-purple-400 flex items-center justify-center mb-5">
+            <div className="w-12 h-12 rounded-xl bg-pink-500/10 dark:bg-pink-400/10 text-pink-600 dark:text-pink-400 flex items-center justify-center mb-5">
               <Zap className="w-6 h-6" />
             </div>
             <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">Memory Tricks & Mnemonics</h3>
@@ -125,7 +153,7 @@ export const LandingPage: React.FC = () => {
           </motion.div>
 
           <motion.div className="glass-effect rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden" variants={itemVariants}>
-            <div className="w-12 h-12 rounded-xl bg-violet-500/10 dark:bg-violet-400/10 text-violet-600 dark:text-violet-400 flex items-center justify-center mb-5">
+            <div className="w-12 h-12 rounded-xl bg-amber-500/10 dark:bg-amber-400/10 text-amber-600 dark:text-amber-400 flex items-center justify-center mb-5">
               <Award className="w-6 h-6" />
             </div>
             <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">Negative Marking Engine</h3>
@@ -159,7 +187,7 @@ export const LandingPage: React.FC = () => {
                       Completed
                     </span>
                   )}
-                  <h3 className="text-lg font-extrabold text-slate-900 dark:text-white mb-1 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                  <h3 className="text-lg font-extrabold text-slate-900 dark:text-white mb-1 group-hover:text-rose-500 dark:group-hover:text-rose-400 transition-colors">
                     Mock Test {id}
                   </h3>
                   <p className="text-xs text-slate-500 mb-4 uppercase tracking-widest font-semibold">
@@ -168,11 +196,11 @@ export const LandingPage: React.FC = () => {
                   
                   <div className="space-y-2 mb-6">
                     <div className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-300">
-                      <Clock className="w-3.5 h-3.5 text-indigo-500" />
+                      <Clock className="w-3.5 h-3.5 text-rose-500" />
                       <span>Duration: 120 Minutes (2 hrs)</span>
                     </div>
                     <div className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-300">
-                      <Star className="w-3.5 h-3.5 text-indigo-500" />
+                      <Star className="w-3.5 h-3.5 text-rose-500" />
                       <span>Grading: +1 for Correct, -0.25 for Incorrect</span>
                     </div>
                   </div>
@@ -181,8 +209,8 @@ export const LandingPage: React.FC = () => {
                     onClick={() => handleStartExam(id)}
                     className={`w-full py-2.5 rounded-xl font-bold text-xs transition-colors flex items-center justify-center gap-1.5
                       ${completed 
-                        ? 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300' 
-                        : 'bg-indigo-600 hover:bg-indigo-700 text-white shadow-md shadow-indigo-600/10'
+                        ? 'bg-rose-50 hover:bg-rose-100 dark:bg-rose-950/20 dark:hover:bg-rose-950/40 text-rose-700 dark:text-rose-350' 
+                        : 'bg-gradient-to-r from-rose-500 to-pink-650 hover:from-rose-600 hover:to-pink-700 text-white shadow-md shadow-rose-500/10'
                       }`}
                   >
                     {completed ? 'Retake Test' : 'Attempt Now'}
@@ -194,7 +222,7 @@ export const LandingPage: React.FC = () => {
         </div>
 
         {/* Exam Pattern Grid */}
-        <div id="exam-pattern" className="mt-24 md:mt-32 p-8 rounded-3xl bg-slate-100 dark:bg-slate-900/50 border border-slate-200/50 dark:border-slate-800/50">
+        <div id="exam-pattern" className="mt-24 md:mt-32 p-8 rounded-3xl bg-rose-50/30 dark:bg-rose-950/5 border border-rose-100/50 dark:border-rose-950/20">
           <div className="text-center max-w-xl mx-auto mb-10">
             <h2 className="text-2xl font-extrabold text-slate-900 dark:text-white mb-2">
               JCECEB B.Sc. Nursing Exam Guidelines
@@ -206,7 +234,7 @@ export const LandingPage: React.FC = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="flex items-start gap-4">
-              <div className="w-10 h-10 rounded-lg bg-indigo-500/10 text-indigo-600 flex items-center justify-center flex-shrink-0">
+              <div className="w-10 h-10 rounded-lg bg-rose-500/10 text-rose-600 flex items-center justify-center flex-shrink-0">
                 <Users className="w-5 h-5" />
               </div>
               <div>
@@ -216,7 +244,7 @@ export const LandingPage: React.FC = () => {
             </div>
 
             <div className="flex items-start gap-4">
-              <div className="w-10 h-10 rounded-lg bg-purple-500/10 text-purple-600 flex items-center justify-center flex-shrink-0">
+              <div className="w-10 h-10 rounded-lg bg-pink-500/10 text-pink-600 flex items-center justify-center flex-shrink-0">
                 <Clock className="w-5 h-5" />
               </div>
               <div>
@@ -226,7 +254,7 @@ export const LandingPage: React.FC = () => {
             </div>
 
             <div className="flex items-start gap-4">
-              <div className="w-10 h-10 rounded-lg bg-emerald-500/10 text-emerald-600 flex items-center justify-center flex-shrink-0">
+              <div className="w-10 h-10 rounded-lg bg-amber-500/10 text-amber-600 flex items-center justify-center flex-shrink-0">
                 <Star className="w-5 h-5" />
               </div>
               <div>
@@ -236,7 +264,7 @@ export const LandingPage: React.FC = () => {
             </div>
 
             <div className="flex items-start gap-4">
-              <div className="w-10 h-10 rounded-lg bg-rose-500/10 text-rose-600 flex items-center justify-center flex-shrink-0">
+              <div className="w-10 h-10 rounded-lg bg-red-500/10 text-red-650 flex items-center justify-center flex-shrink-0">
                 <ShieldAlert className="w-5 h-5" />
               </div>
               <div>
